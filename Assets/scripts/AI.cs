@@ -8,11 +8,43 @@ public class AI : MonoBehaviour
     public List<GameObject> pathpoints;
     NavMeshAgent nma;
     int targetPointIndex = 0;
+    fieldOfView fov;
+
+    Coroutine cor;
 
     private void Start()
     {
         nma = GetComponent<NavMeshAgent>();
-        StartCoroutine(MoveToTarget());
+        fov = GetComponentInChildren<fieldOfView>();
+        cor = StartCoroutine(MoveToTarget());
+
+    }
+
+    private void Update()
+    {
+        if (fov.isPlayerSeen())
+        {
+            //остановка патрулирования и бежим к плееру
+            StopCoroutine(cor);
+            cor = null;
+
+            //run
+
+            nma.destination = fov.GetTargetPosition();
+        }
+        else
+        {
+            if(cor == null && isMoving() == false)
+            {
+                cor = StartCoroutine(waitAndPatrol());
+            }
+        }
+    }
+
+    IEnumerator waitAndPatrol()
+    {
+        yield return new WaitForSeconds(3);
+        cor = StartCoroutine(MoveToTarget());
     }
 
     bool isMoving()
@@ -29,6 +61,14 @@ public class AI : MonoBehaviour
         return true;
     }
 
+    /*private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.CompareTag("Player"))
+        {
+            Destroy(player);
+        }
+    }*/
+
     IEnumerator MoveToTarget()
     {
         nma.destination = pathpoints[targetPointIndex].transform.position;
@@ -40,7 +80,7 @@ public class AI : MonoBehaviour
 
         //yield return new WaitForSeconds(1);
         targetPointIndex = (targetPointIndex + 1) % pathpoints.Count;
-        StartCoroutine(MoveToTarget());
+        cor = StartCoroutine(MoveToTarget());
     }
 
     private void OnDrawGizmos()
