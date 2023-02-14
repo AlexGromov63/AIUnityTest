@@ -1,2 +1,2 @@
 # AIUnityTest
-This is a simple unity project. In this project capsule have an AI and moving on map.
+This is a simple unity project. In this project a red capsule with a simple AI goes to some points, passing by obstacles.
