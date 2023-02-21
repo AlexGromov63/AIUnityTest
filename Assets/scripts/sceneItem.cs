@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class skinItem : MonoBehaviour
+public class sceneItem : MonoBehaviour
 {
     public ItemData data;
 
@@ -17,9 +17,9 @@ public class skinItem : MonoBehaviour
 
     private void Awake()
     {
-        if (FindObjectOfType<profile>.isItemExists(data))
+        /*if (FindObjectOfType<profile>.isItemExists(data))
         {
             Destroy(gameObject);
-        }
+        }*/
     }
 }

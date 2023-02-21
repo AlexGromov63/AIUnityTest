@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0c34016a7cb2a1b41933bfb787aba2c6, type: 3}
-  m_Name: New ItemData
+  m_Name: box
   m_EditorClassIdentifier: 
   NAME: Box
   DESCRIPTION: This is just a box. Nevermind
